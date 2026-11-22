@@ -12,6 +12,7 @@ month = 12
 start_day = 1
 end_day = 15
 
+#functions
 def get_historical_weather(lat, lon, start_date, end_date):
   url = "https://archive-api.open-meteo.com/v1/archive"
   params = {
@@ -38,3 +39,16 @@ def get_forecast(lat, lon):  # ← just added
     }
     response = requests.get(url, params=params)
     return response.json()
+
+today = date.today()
+current_year = today.year
+
+#collect historical dat for the last 5 years
+all_data = []
+
+for year in range(current_year - 5, current_year):
+  start = date(year, month, start_day)
+  end = date(year, month, end_day)
+  data = get_historical_weather(lattitude, longitude, start, end)
+  all_data.append(data)
+  print(f"Fetched data for {year}"
