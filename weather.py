@@ -25,3 +25,16 @@ def get_historical_weather(lat, lon, start_date, end_date):
 
   response = requests.get(url, params = params)
   return response.json()
+
+
+def get_forecast(lat, lon):  # ← just added
+    url = "https://api.open-meteo.com/v1/forecast"
+    params = {
+        "latitude": lat,
+        "longitude": lon,
+        "daily": "temperature_2m_max,temperature_2m_min",
+        "timezone": "America/Los_Angeles",
+        "forecast_days": 7
+    }
+    response = requests.get(url, params=params)
+    return response.json()
